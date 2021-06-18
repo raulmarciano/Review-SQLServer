@@ -16,6 +16,15 @@ LOG ON (NAME = SUCOS_VENDAS_LOG,
 
 DROP DATABASE SUCOS_VENDAS_01;
 
+--Mata as sessões com o banco de dados
+DECLARE @kill varchar(8000) = '';  
+SELECT @kill = @kill + 'kill ' + CONVERT(varchar(5), session_id) + ';'  
+FROM sys.dm_exec_sessions
+WHERE database_id  = db_id('NomeDoBanco')
+
+DROP DATABASE NomeDoBanco;
+
+
 ---------------------------------------------TABLE DDL---------------------------------------------
 
 CREATE TABLE [TABELA DE VENDEDORES]
